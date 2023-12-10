@@ -6,6 +6,13 @@ import (
 	"v2/internal"
 )
 
+func CalcPrice(cust internal.Customer, price int) (int, error) {
+	if cust.Discount {
+		return (price - 100), nil
+	}
+	return 0, errors.New("discount not available")
+}
+
 func main() {
 
 	cust := internal.NewCustomer("dmitry", 23, 10000, 1000, true)
@@ -23,5 +30,12 @@ func main() {
 		return result, nil
 	}
 
-	fmt.Printf("%+v\n", cust)
+	cust.Discount = false
+
+	newPirce, err := CalcPrice(*cust, 1000)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Printf("New price %d\n", newPirce)
+	}
 }

@@ -1,0 +1,2 @@
+# Go-struct
+GG

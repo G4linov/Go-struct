@@ -8,14 +8,9 @@ import (
 
 func main() {
 
-	const DEFAULT_DISCOUNT = 500
+	cust := internal.NewCustomer("dmitry", 23, 10000, 1000, true)
 
-	cust := internal.Customer{
-		Age:     23,
-		Balance: 10000,
-		Debt:    1000,
-		Name:    "Dmitry",
-	}
+	const DEFAULT_DISCOUNT = 500
 
 	cust.CalcDiscount = func() (int, error) {
 		if !cust.Discount {
@@ -28,7 +23,5 @@ func main() {
 		return result, nil
 	}
 
-	discount, _ := cust.CalcDiscount()
-
-	fmt.Printf("%d", discount)
+	fmt.Printf("%+v\n", cust)
 }

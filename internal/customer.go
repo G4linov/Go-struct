@@ -12,11 +12,15 @@ type Discounter interface {
 	CalcDiscount() (int, error)
 }
 
+type Overduer struct {
+	balance int
+	debt    int
+}
+
 type Customer struct {
+	*Overduer
 	Name     string
 	Age      int
-	balance  int
-	debt     int
 	discount bool
 }
 
@@ -42,12 +46,18 @@ func (c *Customer) CalcDiscount() (int, error) {
 	return result, nil
 }
 
+func NewOverDeur(balance int, debt int) *Overduer {
+	return &Overduer{
+		balance: balance,
+		debt:    debt,
+	}
+}
+
 func NewCustomer(name string, age int, balance int, debt int, discount bool) *Customer {
 	return &Customer{
+		Overduer: NewOverDeur(balance, debt),
 		Name:     name,
 		Age:      age,
-		balance:  balance,
-		debt:     debt,
 		discount: discount,
 	}
 }
